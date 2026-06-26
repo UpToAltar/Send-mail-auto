@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gmail SMTP DOCX Mailer</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+  <main class="shell">
+    <section class="panel">
+      <div class="heading">
+        <div>
+          <p class="eyebrow">Gmail SMTP Sender</p>
+          <h1>Gửi báo giá từ file DOCX</h1>
+        </div>
+        <span id="configBadge" class="badge">Đang kiểm tra</span>
+      </div>
+
+      <form id="sendForm" class="form">
+        <label for="subject">Tiêu đề mail</label>
+        <input id="subject" name="subject" type="text" autocomplete="off">
+
+        <label for="docxFileSelect">File Word (Báo giá)</label>
+        <select id="docxFileSelect" name="docxFileSelect"></select>
+
+        <label for="excelFileSelect">File Excel (Danh sách nhận)</label>
+        <select id="excelFileSelect" name="excelFileSelect"></select>
+
+        <div class="source-box">
+          <strong>Danh sách nhận</strong>
+          <span>Lấy từ file Excel, cột 1 là Tên và cột 5 là EMAIL.</span>
+        </div>
+
+        <div class="actions">
+          <button id="startButton" type="submit">Gửi theo Excel</button>
+          <button id="cancelButton" type="button" class="secondary" disabled>Hủy job</button>
+        </div>
+      </form>
+
+      <div id="notice" class="notice"></div>
+    </section>
+
+    <section class="panel">
+      <div class="heading compact">
+        <div>
+          <p class="eyebrow">Trạng thái</p>
+          <h2>Job hiện tại</h2>
+        </div>
+        <button id="refreshButton" type="button" class="icon-button" aria-label="Làm mới">↻</button>
+      </div>
+
+      <dl class="status-grid">
+        <div>
+          <dt>File nội dung</dt>
+          <dd id="docxFile">-</dd>
+        </div>
+        <div>
+          <dt>File danh sách</dt>
+          <dd id="excelFile">-</dd>
+        </div>
+        <div>
+          <dt>Chu kỳ gửi</dt>
+          <dd id="intervalText">-</dd>
+        </div>
+        <div>
+          <dt>Job</dt>
+          <dd id="jobStatus">Chưa chạy</dd>
+        </div>
+        <div>
+          <dt>Tiến độ</dt>
+          <dd id="progressText">0 / 0</dd>
+        </div>
+        <div>
+          <dt>Email kế tiếp</dt>
+          <dd id="nextRecipient">-</dd>
+        </div>
+        <div>
+          <dt>Lần gửi kế tiếp</dt>
+          <dd id="nextRunAt">-</dd>
+        </div>
+      </dl>
+
+      <div class="log-box">
+        <h3>Log</h3>
+        <ul id="logs"></ul>
+      </div>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+
+</html>
