@@ -5,7 +5,7 @@ const fs = require("fs/promises");
 const path = require("path");
 
 const express = require("express");
-const mammoth = require("mammoth");
+const mammoth = require("mammoth-colors");
 const nodemailer = require("nodemailer");
 const xlsx = require("xlsx");
 
@@ -299,12 +299,19 @@ async function renderDocxTemplate(docxPath) {
   );
 
   const html = markLastImageTableAsBorderless(result.value);
+  const colorFixedHtml = replaceFontColorsWithSpans(html);
 
   return {
-    html: wrapEmailHtml(html),
+    html: wrapEmailHtml(colorFixedHtml),
     inlineAttachments,
     warnings: result.messages || []
   };
+}
+
+function replaceFontColorsWithSpans(html) {
+  let processed = html.replace(/<font\s+color="([0-9a-fA-F]{6})">/gi, '<span style="color: #$1;">');
+  processed = processed.replace(/<\/font>/gi, '</span>');
+  return processed;
 }
 
 function wrapEmailHtml(body) {
